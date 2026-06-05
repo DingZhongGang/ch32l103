@@ -10,30 +10,33 @@
 			"rtos": "NoneOS",
 			"mcu": "CH32L103C8T",
 			"description": "ROM(byte): 64K, SRAM(byte): 20K, CHIP PINS: 48, GPIO PORTS: 37.\\nCH32L103 is an industrial-grade low-power general purpose microcontroller based on Highland Barley RISC-V core design. The CH32L103 has built-in USB and PD PHY, support PDUSB, including USB Host host and USB Device device function, USB PD and type C fast charge function, built-in low power timer, It provides a set of OPA operation amplifier, 3 sets of CMP voltage comparators, 4 sets of USART serial ports, 2 I2C interfaces, 2 SPI interfaces, 1 set of CAN interfaces, multiple sets of timers, 12-bit ADC, 10 Touchkeys and other peripheral resources.",
+			"tempratureScope": "",
+			"artifactType": "executable",
 			"link": "WCH-Link",
 			"peripheral_version": "1.0",
-			"calibrateSupport": false
+			"calibrateSupport": false,
+			"calibrateCommand": ""
 		},
 		"linkedFolders": [
 			{
 				"name": "Core",
-				"location": "../../../SRC/Core"
+				"location": "../../SRC/Core"
 			},
 			{
 				"name": "Debug",
-				"location": "../../../SRC/Debug"
+				"location": "../../SRC/Debug"
 			},
 			{
 				"name": "Ld",
-				"location": "../../../SRC/Ld"
+				"location": "../../SRC/Ld"
 			},
 			{
 				"name": "Peripheral",
-				"location": "../../../SRC/Peripheral"
+				"location": "../../SRC/Peripheral"
 			},
 			{
 				"name": "Startup",
-				"location": "../../../SRC/Startup"
+				"location": "../../SRC/Startup"
 			}
 		],
 		"removedResources": [
@@ -43,7 +46,7 @@
 				"name": "*.wvproj"
 			}
 		],
-		"projectName": "CH32L103_IAP",
+		"projectName": "USBPD_CH211",
 		"architecture": "RISC-V",
 		"projectType": "c"
 	},
@@ -62,7 +65,11 @@
 				"pre_script_description": "",
 				"post_script": "",
 				"post_script_description": "",
-				"excludeResources": [],
+				"excludeResources": [
+					"${project}/Startup/startup_ch32v20x_D8W.S",
+					"${project}/Startup/startup_ch32v20x_D8.S",
+					"${project}/Peripheral/inc/ch32l103_usbpd.h"
+				],
 				"optimization": {
 					"level": "size",
 					"message_length": true,
@@ -147,8 +154,7 @@
 							"${project}/Debug",
 							"${project}/Core",
 							"${project}/User",
-							"${project}/Peripheral/inc",
-							"${project}/User/USB"
+							"${project}/Peripheral/inc"
 						],
 						"include_system_paths": [],
 						"include_files": []
@@ -222,8 +228,12 @@
 						"omit_all_symbol_information": false
 					},
 					"libraries": {
-						"libraries": [],
-						"library_search_path": []
+						"libraries": [
+							"CH32_USBPD"
+						],
+						"library_search_path": [
+							"${project}/User"
+						]
 					},
 					"miscellaneous": {
 						"picolibc": "disabled",
@@ -256,8 +266,12 @@
 						"omit_all_symbol_information": false
 					},
 					"libraries": {
-						"libraries": [],
-						"library_search_path": []
+						"libraries": [
+							"CH32_USBPD"
+						],
+						"library_search_path": [
+							"${project}/User"
+						]
 					},
 					"miscellaneous": {
 						"picolibc": "disabled",
@@ -283,7 +297,7 @@
 				},
 				"createFlash": {
 					"enabled": true,
-					"outputFileFormat": "ihex",
+					"outputFileFormat": "ihexAndbinary",
 					"copy_only_section_text": false,
 					"copy_only_section_data": false,
 					"copy_only_sections": [],
@@ -338,7 +352,7 @@
 	"flashConfig": {
 		"mcutype": "CH32L10x",
 		"address": "0x08000000",
-		"target_path": "obj/CH32L103_IAP.hex",
+		"target_path": "obj/USBPD_CH211.hex",
 		"clkSpeed": "High",
 		"debug_interface_mode": "1-wire serial",
 		"erase": true,
@@ -417,17 +431,15 @@
 			"showDebugOutputTimestamps": true
 		},
 		"reserve": {
-			"PROGRAM_NAME": "obj/CH32L103_IAP.elf",
-			"PROJECT_ATTR": "CH32L103_IAP",
+			"PROGRAM_NAME": "obj/USBPD_CH211.elf",
+			"PROJECT_ATTR": "USBPD_CH211",
 			"PROJECT_BUILD_CONFIG_AUTO_ATTR": true,
 			"PROJECT_BUILD_CONFIG_ID_ATTR": "",
 			"ATTR_BUILD_BEFORE_LAUNCH_ATTR": 2,
 			"GdbServerAllocateConsole": true,
 			"GdbServerAllocateTelnetConsole": false,
-			"SkipDownloadBeforeDebug": false,
 			"StartGdbCLient": true,
-			"UPDATE_THREADLIST_ON_SUSPEND": false,
-			"DebugInRam": false
+			"UPDATE_THREADLIST_ON_SUSPEND": false
 		}
 	}
 }
